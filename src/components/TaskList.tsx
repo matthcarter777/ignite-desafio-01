@@ -15,15 +15,17 @@ export function TaskList() {
   const [newTaskTitle, setNewTaskTitle] = useState('');
 
   function handleCreateNewTask() {
-    const newTask: Task = {
-      id: tasks.length + 1,
-      title: newTaskTitle,
-      isComplete: false
-    };
 
-    console.log(newTask)
-
-    setTasks([...tasks, newTask ])
+    if(newTaskTitle !== '') {
+      const newTask: Task = {
+        id: Math.random(),
+        title: newTaskTitle,
+        isComplete: false
+      }
+      
+      setTasks([...tasks, newTask]);
+      setNewTaskTitle('');
+    }
   }
 
   function handleToggleTaskCompletion(id: number) {
@@ -32,13 +34,13 @@ export function TaskList() {
       isComplete: !task.isComplete 
       } : task);
 
-    setTasks(updatedTask);
+    setTasks(updatedTask)
   }
 
   function handleRemoveTask(id: number) {
-    const tasksFilteredById = tasks.filter(task => task.id !== id);
-    
-    setTasks(tasksFilteredById);
+    const removedTasks = tasks.filter(task => task.id !== id);
+
+    setTasks(removedTasks);
   }
 
   return (
